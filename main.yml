@@ -1,2 +1,18 @@
 ---
 - hosts: localhost
+  tasks:
+  - name: APT install cpu-checker
+    apt:
+      name: cpu-checker
+    become: true
+  - name: Check virtualization extensions are enabled
+    command: kvm-ok
+    register: result
+    ignore_errors: true
+    become: true
+  - debug: var=result.stdout_lines
+  - fail:
+      msg: Enable virtualization (see above) and then re-run virtinit.
+    when: result is failure
+  - debug:
+      msg: Hello
