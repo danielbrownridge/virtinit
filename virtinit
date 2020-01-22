@@ -37,3 +37,9 @@ sudo apt-add-repository --remove --update --yes $PPA_ANSIBLE
 # https://docs.ansible.com/ansible/latest/reference_appendices/python_3_support.html
 echo "Install Python 3 package: PKG_ANSIBLE"
 pip3 install $PKG_ANSIBLE
+
+# playbook
+PLAYBOOK=main.yml
+# Hand over to Ansible for the rest of the configuration.
+echo "Run ansible playbook."
+ansible-playbook $PLAYBOOK
