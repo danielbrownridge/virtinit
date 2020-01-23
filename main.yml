@@ -40,3 +40,16 @@
     tags: virtualbox
     become: true
 
+  - name: Vagrant
+    vars:
+      vagrant_repo_url: https://vagrant-deb.linestarve.com/
+    tags: vagrant
+    block:
+      - apt_key:
+          keyserver: keyserver.ubuntu.com
+          id: AD319E0F7CFFA38B4D9F6E55CE3F3DE92099F7A4
+      - apt_repository:
+          repo: "deb {{ vagrant_repo_url }} any main"
+      - apt:
+          name: vagrant
+    become: true
