@@ -14,6 +14,7 @@ Install list
 ------------
 
 * Ansible (with Python 3 support)
+* Virtualbox 6.1
 
 Instructions
 ============
