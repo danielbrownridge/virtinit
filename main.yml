@@ -36,7 +36,7 @@
       - apt_repository:
           repo: "deb [arch=amd64] {{ virtualbox_repo_url }} {{ ansible_distribution_release}} contrib"
       - apt:
-          name: virtualbox-6.1
+          name: virtualbox-6.0
     tags: virtualbox
     become: true
 
@@ -53,3 +53,34 @@
       - apt:
           name: vagrant
     become: true
+
+  - name: Win10 VMs
+    vars:
+      vm_path: "~/vms/"
+      archive_filename: MsEdge.Win10.Vagrant.zip
+      archive_path: "{{ vm_path }}{{ archive_filename }}"
+      box_filename: "MsEdge - Win10.box"
+      box_path: "{{ vm_path }}{{ box_filename }}"
+      box_name: EdgeOnWindows10
+      archive_url: "https://az792536.vo.msecnd.net/vms/VMBuild_20150916/Vagrant/MsEdge/{{ vm_filename }}"
+    tags: win10
+    block:
+      - file:
+          path: "{{ vm_path }}"
+          state: directory
+      - stat:
+          path: "{{ archive_path }}" 
+        register: archive
+      - get_url:
+          url: "{{ vm_url }}"
+          dest: "{{ vm_path }}{{ vm_filename }}"
+        when: archive.stat.exists == false
+      - stat:
+          path: "{{ box_path }}"
+        register: box
+      - unarchive:
+          src: "{{ archive_path }}"
+          dest: "{{ vm_path }}"
+        when: box.stat.exists == false
+      - command: "vagrant box add '{{ box_path }}' --name {{ box_name }} --force"
+
