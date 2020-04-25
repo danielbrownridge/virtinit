@@ -1,2 +1,3 @@
-language: sh
+language: shell
 os: linux
+dist: bionic
