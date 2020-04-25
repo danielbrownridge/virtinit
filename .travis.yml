@@ -1,6 +1,8 @@
 language: shell
 os: linux
 dist: bionic
+before_install:
+  - wget https://raw.githubusercontent.com/kward/shunit2/v2.1.8/shunit2
 script:
   - shellcheck virtinit
   - ./dummy_test.sh
