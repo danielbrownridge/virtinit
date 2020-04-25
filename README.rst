@@ -1,6 +1,9 @@
 virtinit
 ========
 
+.. image:: https://travis-ci.com/danielbrownridge/virtinit.svg?branch=master
+    :target: https://travis-ci.com/danielbrownridge/virtinit
+
 virtinit is short for Virtualization Initialization. It is a script to help
 bootstrap a personal machine for doing development with virtual machines.
 This involves doing some hardware checks and installing a specific set of
