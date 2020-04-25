@@ -1,3 +1,5 @@
 language: shell
 os: linux
 dist: bionic
+script:
+  - shellcheck virtinit
