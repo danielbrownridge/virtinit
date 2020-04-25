@@ -3,3 +3,5 @@ os: linux
 dist: bionic
 script:
   - shellcheck virtinit
+  - ./dummy_test.sh
+
