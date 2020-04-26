@@ -4,10 +4,10 @@ dist: bionic
 jobs:
   include:
   - stage: static analysis
-  - name: shellcheck
+    name: shellcheck
     script: shellcheck virtinit
-  - stage: Tests
+  - stage: tests
     before_install: wget https://raw.githubusercontent.com/kward/shunit2/v2.1.8/shunit2
-  - name: Smoke Tests
+    name: Smoke Tests
     script: ./dummy_test.sh
 
