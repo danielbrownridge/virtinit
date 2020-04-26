@@ -1,7 +1,7 @@
 #! /bin/sh
 # file: after.sh
 
-testMissingPackagePip3() {
+testFoundPackagePip3() {
     pkg=python3-pip
     output=$(apt-cache search --names-only $pkg)
     assertContains "package" "$output" "$pkg"

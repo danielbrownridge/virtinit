@@ -1,13 +1,13 @@
 #! /bin/sh
 # file: before_test.sh
 
-testMissingPackagePip3() {
+testNotFoundPackagePip3() {
     pkg=python3-pip
     output=$(apt-cache search --names-only $pkg)
     assertNotContains "$output" "$output" "$pkg"
 }
 
-testMissingCommandPip3() {
+testNotFoundCommandPip3() {
     cmd="pip3"
     output=$(command -v ${cmd})
     rtrn=$?
