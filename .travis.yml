@@ -13,4 +13,6 @@ jobs:
     before_script:
       - ./dummy_test.sh
       - ./before_test.sh
+    after_script:
+      - ./after_test.sh
 
