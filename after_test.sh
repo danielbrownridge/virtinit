@@ -2,7 +2,7 @@
 # file: after.sh
 
 testFoundCommandPip3() {
-    cmd="fish"
+    cmd="pip3"
     output=$(command -v ${cmd})
     rtrn=$?
     assertTrue "${cmd} missing: ${output}" ${rtrn}
