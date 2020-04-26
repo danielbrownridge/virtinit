@@ -1,21 +1,18 @@
 #!/bin/sh
-
 # virtinit
 
 # pip3 
-
-# https://packages.ubuntu.com/python3-pip
-PKG_PIP3=python3-pip
-
 # pip3 is required to install other pacakges so this is installed first.
+# https://packages.ubuntu.com/python3-pip
+
+PKG_PIP3=python3-pip
 sudo apt install --assume-yes $PKG_PIP3
 
 # Ansible
-
 # https://packages.ubuntu.com/ansible
-PKG_ANSIBLE=ansible
+#PKG_ANSIBLE=ansible
 # https://launchpad.net/~ansible/+archive/ubuntu/ansible
-PPA_ANSIBLE=ppa:ansible/ansible
+#PPA_ANSIBLE=ppa:ansible/ansible
 
 # On Ubuntu ansible can be installed from system packages - see:
 # https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-ansible-on-ubuntu
@@ -23,23 +20,24 @@ PPA_ANSIBLE=ppa:ansible/ansible
 # version of ansible configured for Python 2 support instead of Python 3. For
 # this reason, any prior installation of ansible from system packages is
 # removed and any autoinstalled dependency packages are also cleaned up.
-echo "Remove APT package: $PKG_ANSIBLE"
-sudo apt purge --assume-yes --auto-remove $PKG_ANSIBLE
+
+#echo "Remove APT package: $PKG_ANSIBLE"
+#sudo apt purge --assume-yes --auto-remove $PKG_ANSIBLE
 
 # Since ansible will not be installed from a system package the PPA repository
 # for ansible is not required so it is removed if was previously installed.
-echo "Remove PPA repository: $PPA_ANSIBLE"
-sudo apt-add-repository --remove --update --yes $PPA_ANSIBLE
+#echo "Remove PPA repository: $PPA_ANSIBLE"
+#sudo apt-add-repository --remove --update --yes $PPA_ANSIBLE
 
 # Install ansible using pip.
 # Ansible should be installed via pip3 to ensure that it is configured for
 # Python 3 support.
 # https://docs.ansible.com/ansible/latest/reference_appendices/python_3_support.html
-echo "Install Python 3 package: PKG_ANSIBLE"
-pip3 install $PKG_ANSIBLE
+#echo "Install Python 3 package: PKG_ANSIBLE"
+#pip3 install $PKG_ANSIBLE
 
 # playbook
-PLAYBOOK=main.yml
+#PLAYBOOK=main.yml
 # Hand over to Ansible for the rest of the configuration.
-echo "Run ansible playbook."
-ansible-playbook $PLAYBOOK
+#echo "Run ansible playbook."
+#ansible-playbook $PLAYBOOK

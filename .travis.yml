@@ -14,4 +14,5 @@ jobs:
       - ./dummy_test.sh
     script:
       - ./before_test.sh
+      - ./virtinit
       - ./after_test.sh
