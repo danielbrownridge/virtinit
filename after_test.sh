@@ -4,7 +4,7 @@
 testMissingPackagePip3() {
     pkg=python3-pip
     output=$(apt-cache search --names-only $pkg)
-    assertContains "package $pkg not found in: $output" "$output" "$pkg"
+    assertContains "$output" "$pkg"
 }
 
 testFoundCommandPip3() {
