@@ -6,9 +6,8 @@ sudo apt update
 
 # Install pip3 from system packages 
 # https://packages.ubuntu.com/python3-pip
-
-#PKG_PIP3=python3-pip
-#sudo apt install --assume-yes $PKG_PIP3
+PKG_PIP3=python3-pip
+sudo apt install --assume-yes $PKG_PIP3
 
 # Ansible
 # https://packages.ubuntu.com/ansible
