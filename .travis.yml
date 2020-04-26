@@ -5,9 +5,10 @@ jobs:
   include:
   - stage: static analysis
     name: shellcheck
-    script: shellcheck virtinit
+    script: shellcheck virtinit *.sh
   - stage: tests
-    before_install: wget https://raw.githubusercontent.com/kward/shunit2/v2.1.8/shunit2
-    name: Smoke Tests
+    name: test virtinit script
+    before_install:
+      - ./install-test-dependencies.sh
     script: ./dummy_test.sh
 
