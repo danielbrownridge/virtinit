@@ -3,10 +3,11 @@ os: linux
 dist: bionic
 jobs:
   include:
-  - stage: static analysis
-    name: shellcheck
-    script: shellcheck virtinit *.sh
   - stage: tests
+
+    name: static analysis
+    script: shellcheck virtinit *.sh
+
     name: test virtinit script
     before_install:
       - ./install-test-dependencies.sh
