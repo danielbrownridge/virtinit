@@ -10,5 +10,7 @@ jobs:
     name: test virtinit script
     before_install:
       - ./install-test-dependencies.sh
-    script: ./dummy_test.sh
+    before_script:
+      - ./dummy_test.sh
+      - ./before_test.sh
 
