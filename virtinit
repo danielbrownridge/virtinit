@@ -24,7 +24,7 @@ sudo apt purge --assume-yes --auto-remove $PKG_ANSIBLE
 
 # Install the pip version of Ansible which uses Python 3.
 # https://docs.ansible.com/ansible/latest/reference_appendices/python_3_support.html
-#pip3 install $PKG_ANSIBLE
+pip3 install $PKG_ANSIBLE
 
 # playbook
 #PLAYBOOK=main.yml
