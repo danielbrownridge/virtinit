@@ -7,6 +7,18 @@ testFoundPackagePip3() {
     assertContains "package" "$output" "$pkg"
 }
 
+testNotInstalledPkgPip3() {
+    pkg=python3-pip
+    output=$(dpkg --status $pkg 2>&1)
+    assertContains "$output" "package '$pkg' is not installed"
+}
+
+testInstalledPkgSetuptools() {
+    pkg=python3-setuptools
+    output=$(dpkg --status $pkg 2>&1)
+    assertContains "$output" "package '$pkg' is not installed"
+}
+
 testFoundCommandPip3() {
     cmd="pip3"
     output=$(command -v ${cmd})
@@ -20,7 +32,7 @@ testNotInstalledAptAnsible() {
     assertContains "$output" "package '$pkg' is not installed"
 }
 
-testCommandFoundAnsiblePlaybook() {
+testFoundCommandAnsiblePlaybook() {
     cmd="ansible-playbook"
     output=$(dpkg --status $pkg 2>&1)
     output=$(command -v ${cmd})
