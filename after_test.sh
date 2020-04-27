@@ -7,16 +7,16 @@ testFoundPackagePip3() {
     assertContains "package" "$output" "$pkg"
 }
 
-testNotInstalledPkgPip3() {
+testInstalledPkgPip3() {
     pkg=python3-pip
     output=$(dpkg --status $pkg 2>&1)
-    assertContains "$output" "package '$pkg' is not installed"
+    assertContains "$output" "$output" "Status: install ok installed"
 }
 
 testInstalledPkgSetuptools() {
     pkg=python3-setuptools
     output=$(dpkg --status $pkg 2>&1)
-    assertContains "$output" "package '$pkg' is not installed"
+    assertContains "$output" "$output" "Status: install ok installed"
 }
 
 testFoundCommandPip3() {
