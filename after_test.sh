@@ -19,6 +19,12 @@ testInstalledPkgSetuptools() {
     assertContains "$output" "$output" "Status: install ok installed"
 }
 
+testInstalledPkgWheel() {
+    pkg=python3-wheel
+    output=$(dpkg --status $pkg 2>&1)
+    assertContains "$output" "$output" "Status: install ok installed"
+}
+
 testFoundCommandPip3() {
     cmd="pip3"
     output=$(command -v ${cmd})
