@@ -14,5 +14,13 @@ testNotFoundCommandPip3() {
     assertFalse "${cmd} found: ${output}" ${rtrn}
 }
 
+testNotFoundCommandAnsiblePlaybook() {
+    cmd="ansible-playbook"
+    output=$(dpkg --status $pkg 2>&1)
+    output=$(command -v ${cmd})
+    rtrn=$?
+    assertFalse "${cmd} missing: ${output}" ${rtrn}
+}
+
 # shellcheck disable=SC1091
 . ./shunit2
