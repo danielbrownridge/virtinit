@@ -13,9 +13,11 @@ sudo apt update
 PIP3=python3-pip
 # https://packages.ubuntu.com/python3-setuptools
 SETUPTOOLS=python3-setuptools
+# https://packages.ubuntu.com/python3-wheel
+WHEEL=python3-wheel
 
 # Install atp dependencies:
-sudo apt install --assume-yes $PIP3 $SETUPTOOLS
+sudo apt install --assume-yes $PIP3 $SETUPTOOLS $WHEEL
 
 # Ansible
 PKG_ANSIBLE=ansible
