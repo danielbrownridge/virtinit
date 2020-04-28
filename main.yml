@@ -1,6 +1,6 @@
 ---
 - name: virtinit
-  #  hosts: localhost
+  hosts: localhost
   #  tasks:
   #  - name: Dependencies
   #    block:
