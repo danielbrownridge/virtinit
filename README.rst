@@ -16,7 +16,7 @@ The script is currently targeted at Ubuntu 18.04 LTS.
 Install list
 ------------
 * `Ansible (with Python 3 support) <https://www.ansible.com/>`_
-* `CPU-Checker <https://launchpad.net/cpu-checker>`
+* `CPU-Checker <https://launchpad.net/cpu-checker>`_
 * `pip  <https://pip.pypa.io/en/stable/>`_
 * `setuptools <https://pypi.org/project/setuptools/>`_
 * `Vagrant <https://www.vagrantup.com/>`_

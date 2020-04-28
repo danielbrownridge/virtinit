@@ -1,7 +1,7 @@
 ---
 - name: virtinit
   hosts: localhost
-  #  tasks:
+  tasks:
   #  - name: Dependencies
   #    block:
   #      - apt:
@@ -10,12 +10,12 @@
   #    become: true
   #    tags: dependencies
   #
-  #  - name: Virtualization Technologies Check
-  #    block:
-  #      - name: APT install cpu-checker
-  #        apt:
-  #          name: cpu-checker
-  #        become: true
+  - name: Virtualization Technologies Check
+    block:
+      - name: APT install cpu-checker
+        apt:
+          name: cpu-checker
+        become: true
   #      - command: kvm-ok
   #        register: result
   #        ignore_errors: true
