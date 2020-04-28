@@ -7,16 +7,16 @@ testNotFoundPackagePip3() {
     assertNotContains "$output" "$output" "$pkg"
 }
 
-testNotInstalledPkgPip3() {
-    pkg=python3-pip
-    output=$(dpkg --status $pkg 2>&1)
-    assertContains "$output" "package '$pkg' is not installed"
-}
-
-testNotInstalledPkgSetuptools() {
-    pkg=python3-setuptools
-    output=$(dpkg --status $pkg 2>&1)
-    assertContains "$output" "package '$pkg' is not installed"
+testNotInstalledPkg() {
+    while read -r desc pkg; do
+        echo "$desc: $pkg"
+        output=$(dpkg --status "$pkg" 2>&1)
+        assertContains "Found $desc:" "$output" "package '$pkg' is not installed"
+    done <<EOF
+pip3 python3-pip
+setuptools python3-setuptools
+wheel python3-wheel
+EOF
 }
 
 testNotFoundCommandPip3() {
@@ -28,7 +28,7 @@ testNotFoundCommandPip3() {
 
 testNotFoundCommandAnsiblePlaybook() {
     cmd="ansible-playbook"
-    output=$(dpkg --status $pkg 2>&1)
+    output=$(dpkg --status "$pkg" 2>&1)
     output=$(command -v ${cmd})
     rtrn=$?
     assertFalse "${cmd} missing: ${output}" ${rtrn}
