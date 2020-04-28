@@ -1,51 +1,39 @@
 #! /bin/sh
 # file: after.sh
 
-testFoundPackagePip3() {
-    pkg=python3-pip
-    output=$(apt-cache search --names-only $pkg)
-    assertContains "package" "$output" "$pkg"
+testInstalledPkg() {
+    while read -r desc pkg; do
+    output=$(apt-cache search --names-only "$pkg")
+    assertContains "Not found $desc" "$output" "$pkg"
+    output=$(dpkg --status "$pkg" 2>&1)
+    assertContains "$desc: $output" "$output" "Status: install ok installed"
+    done <<EOF
+pip3 python3-pip
+setuptools python3-setuptools
+wheel python3-wheel
+EOF
 }
 
-testInstalledPkgPip3() {
-    pkg=python3-pip
-    output=$(dpkg --status $pkg 2>&1)
-    assertContains "$output" "$output" "Status: install ok installed"
+testNotInstalledPkg() {
+    while read -r desc pkg; do
+        echo "$desc: $pkg"
+        output=$(dpkg --status "$pkg" 2>&1)
+        assertContains "Found $desc:" "$output" "package '$pkg' is not installed"
+    done <<EOF
+ansible ansible
+EOF
 }
 
-testInstalledPkgSetuptools() {
-    pkg=python3-setuptools
-    output=$(dpkg --status $pkg 2>&1)
-    assertContains "$output" "$output" "Status: install ok installed"
-}
-
-testInstalledPkgWheel() {
-    pkg=python3-wheel
-    output=$(dpkg --status $pkg 2>&1)
-    assertContains "$output" "$output" "Status: install ok installed"
-}
-
-testFoundCommandPip3() {
-    cmd="pip3"
-    output=$(command -v ${cmd})
-    rtrn=$?
-    assertTrue "${cmd} missing: ${output}" ${rtrn}
-}
-
-testNotInstalledAptAnsible() {
-    pkg=ansible
-    output=$(dpkg --status $pkg 2>&1)
-    assertContains "$output" "package '$pkg' is not installed"
-}
-
-testFoundCommandAnsiblePlaybook() {
-    cmd="ansible-playbook"
-    output=$(dpkg --status $pkg 2>&1)
-    output=$(command -v ${cmd})
-    rtrn=$?
-    assertTrue "${cmd} missing: ${output}" ${rtrn}
+testFoundCommand() {
+    while read -r cmd; do
+        output=$(command -v "$cmd")
+        rtrn=$?
+        assertTrue "${cmd} missing: ${output}" ${rtrn}
+    done <<EOF
+pip3
+ansible-playbook
+EOF
 }
 
 # shellcheck disable=SC1091
 . ./shunit2
-
