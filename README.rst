@@ -15,12 +15,13 @@ The script is currently targeted at Ubuntu 18.04 LTS.
 
 Install list
 ------------
-* `pip  <https://pip.pypa.io/en/stable/>`_
-* `wheel <https://pypi.org/project/wheel/>`_
-* `setuptools <https://pypi.org/project/setuptools/>`_
 * `Ansible (with Python 3 support) <https://www.ansible.com/>`_
-* `Virtualbox 6.0 <https://www.virtualbox.org/>`_
+* `CPU-Checker <https://launchpad.net/cpu-checker>`
+* `pip  <https://pip.pypa.io/en/stable/>`_
+* `setuptools <https://pypi.org/project/setuptools/>`_
 * `Vagrant <https://www.vagrantup.com/>`_
+* `Virtualbox 6.0 <https://www.virtualbox.org/>`_
+* `wheel <https://pypi.org/project/wheel/>`_
 
 Instructions
 ============

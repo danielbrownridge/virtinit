@@ -11,6 +11,7 @@ testInstalledPkg() {
 pip3 python3-pip
 setuptools python3-setuptools
 wheel python3-wheel
+CPU-Checker cpu-checker
 EOF
 }
 
@@ -30,8 +31,9 @@ testFoundCommand() {
         rtrn=$?
         assertTrue "${cmd} missing: ${output}" ${rtrn}
     done <<EOF
-pip3
 ansible-playbook
+kvm-ok
+pip3
 EOF
 }
 
