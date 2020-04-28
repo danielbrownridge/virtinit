@@ -12,7 +12,7 @@ pip3 python3-pip
 setuptools python3-setuptools
 wheel python3-wheel
 CPU-Checker cpu-checker
-virtualbox virtualbox-6
+virtualbox virtualbox-6.0
 EOF
 }
 

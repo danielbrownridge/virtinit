@@ -25,20 +25,20 @@
           msg: Enable virtualization (see above) and then re-run virtinit.
         when: result is failure
     tags: cpucheck
-  #
-  #  - name: VirtualBox
-  #    vars:
-  #      virtualbox_key_url: https://www.virtualbox.org/download/oracle_vbox_2016.asc
-  #      virtualbox_repo_url: https://download.virtualbox.org/virtualbox/debian
-  #    block:
-  #      - apt_key:
-  #          url: "{{ virtualbox_key_url }}"
+
+  - name: VirtualBox
+    vars:
+      virtualbox_key_url: https://www.virtualbox.org/download/oracle_vbox_2016.asc
+      virtualbox_repo_url: https://download.virtualbox.org/virtualbox/debian
+    block:
+      - apt_key:
+          url: "{{ virtualbox_key_url }}"
   #      - apt_repository:
   #          repo: "deb [arch=amd64] {{ virtualbox_repo_url }} {{ ansible_distribution_release}} contrib"
   #      - apt:
   #          name: virtualbox-6.0
-  #    tags: virtualbox
-  #    become: true
+    tags: virtualbox
+    become: true
   #
   #  - name: Vagrant
   #    vars:
