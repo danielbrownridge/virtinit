@@ -33,8 +33,8 @@
     block:
       - apt_key:
           url: "{{ virtualbox_key_url }}"
-  #      - apt_repository:
-  #          repo: "deb [arch=amd64] {{ virtualbox_repo_url }} {{ ansible_distribution_release}} contrib"
+      - apt_repository:
+          repo: "deb [arch=amd64] {{ virtualbox_repo_url }} {{ ansible_distribution_release}} contrib"
   #      - apt:
   #          name: virtualbox-6.0
     tags: virtualbox
