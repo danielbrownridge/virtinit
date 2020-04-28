@@ -1,86 +1,55 @@
 ---
 - name: virtinit
-  hosts: localhost
-  tasks:
-  - name: Dependencies
-    block:
-      - apt:
-          pkg:
-          - python3-apt
-    become: true
-    tags: dependencies
-
-  - name: Virtualization Technologies Check
-    block:
-      - name: APT install cpu-checker
-        apt:
-          name: cpu-checker
-        become: true
-      - command: kvm-ok
-        register: result
-        ignore_errors: true
-        become: true
-      - debug: var=result.stdout_lines
-      - fail:
-          msg: Enable virtualization (see above) and then re-run virtinit.
-        when: result is failure
-    tags: cpucheck
-
-  - name: VirtualBox
-    vars:
-      virtualbox_key_url: https://www.virtualbox.org/download/oracle_vbox_2016.asc
-      virtualbox_repo_url: https://download.virtualbox.org/virtualbox/debian
-    block:
-      - apt_key:
-          url: "{{ virtualbox_key_url }}"
-      - apt_repository:
-          repo: "deb [arch=amd64] {{ virtualbox_repo_url }} {{ ansible_distribution_release}} contrib"
-      - apt:
-          name: virtualbox-6.0
-    tags: virtualbox
-    become: true
-
-  - name: Vagrant
-    vars:
-      vagrant_repo_url: https://vagrant-deb.linestarve.com/
-    tags: vagrant
-    block:
-      - apt_key:
-          keyserver: keyserver.ubuntu.com
-          id: AD319E0F7CFFA38B4D9F6E55CE3F3DE92099F7A4
-      - apt_repository:
-          repo: "deb {{ vagrant_repo_url }} any main"
-      - apt:
-          name: vagrant
-    become: true
-
-  - name: Win10 VMs
-    vars:
-      vm_path: "~/vms/"
-      archive_filename: MsEdge.Win10.Vagrant.zip
-      archive_path: "{{ vm_path }}{{ archive_filename }}"
-      box_filename: "MsEdge - Win10.box"
-      box_path: "{{ vm_path }}{{ box_filename }}"
-      box_name: EdgeOnWindows10
-      archive_url: "https://az792536.vo.msecnd.net/vms/VMBuild_20150916/Vagrant/MsEdge/{{ vm_filename }}"
-    tags: win10
-    block:
-      - file:
-          path: "{{ vm_path }}"
-          state: directory
-      - stat:
-          path: "{{ archive_path }}" 
-        register: archive
-      - get_url:
-          url: "{{ vm_url }}"
-          dest: "{{ vm_path }}{{ vm_filename }}"
-        when: archive.stat.exists == false
-      - stat:
-          path: "{{ box_path }}"
-        register: box
-      - unarchive:
-          src: "{{ archive_path }}"
-          dest: "{{ vm_path }}"
-        when: box.stat.exists == false
-      - command: "vagrant box add '{{ box_path }}' --name {{ box_name }} --force"
-
+  #  hosts: localhost
+  #  tasks:
+  #  - name: Dependencies
+  #    block:
+  #      - apt:
+  #          pkg:
+  #          - python3-apt
+  #    become: true
+  #    tags: dependencies
+  #
+  #  - name: Virtualization Technologies Check
+  #    block:
+  #      - name: APT install cpu-checker
+  #        apt:
+  #          name: cpu-checker
+  #        become: true
+  #      - command: kvm-ok
+  #        register: result
+  #        ignore_errors: true
+  #        become: true
+  #      - debug: var=result.stdout_lines
+  #      - fail:
+  #          msg: Enable virtualization (see above) and then re-run virtinit.
+  #        when: result is failure
+  #    tags: cpucheck
+  #
+  #  - name: VirtualBox
+  #    vars:
+  #      virtualbox_key_url: https://www.virtualbox.org/download/oracle_vbox_2016.asc
+  #      virtualbox_repo_url: https://download.virtualbox.org/virtualbox/debian
+  #    block:
+  #      - apt_key:
+  #          url: "{{ virtualbox_key_url }}"
+  #      - apt_repository:
+  #          repo: "deb [arch=amd64] {{ virtualbox_repo_url }} {{ ansible_distribution_release}} contrib"
+  #      - apt:
+  #          name: virtualbox-6.0
+  #    tags: virtualbox
+  #    become: true
+  #
+  #  - name: Vagrant
+  #    vars:
+  #      vagrant_repo_url: https://vagrant-deb.linestarve.com/
+  #    tags: vagrant
+  #    block:
+  #      - apt_key:
+  #          keyserver: keyserver.ubuntu.com
+  #          id: AD319E0F7CFFA38B4D9F6E55CE3F3DE92099F7A4
+  #      - apt_repository:
+  #          repo: "deb {{ vagrant_repo_url }} any main"
+  #      - apt:
+  #          name: vagrant
+  #    become: true

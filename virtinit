@@ -2,38 +2,36 @@
 # virtinit
 
 # Most of the virtinit script is implemented as an Ansible playbook which
-# runs locally. First we need to bootstrap Ansible with Python3 support.
+# runs locally. It's necessary to bootstrap Ansible with Python3 support.
 
 # APT Cache
 # First update the apt cache so that system packages can be found.
 sudo apt update
 
-# Python 3 dependencies:
+# Python 3 packages
+# Install the Python 3 apt packages required to install and build ansible:
 # https://packages.ubuntu.com/python3-pip
 PIP3=python3-pip
 # https://packages.ubuntu.com/python3-setuptools
 SETUPTOOLS=python3-setuptools
 # https://packages.ubuntu.com/python3-wheel
 WHEEL=python3-wheel
-
-# Install atp dependencies:
 sudo apt install --assume-yes $PIP3 $SETUPTOOLS $WHEEL
 
 # Ansible
-PKG_ANSIBLE=ansible
 # The apt version of Ansible from the Ubuntu repositories uses Python 2 so it
 # is removed if already installed.
 # https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-ansible-on-ubuntu
 # https://packages.ubuntu.com/ansible
 # https://launchpad.net/~ansible/+archive/ubuntu/ansible
-sudo apt purge --assume-yes --auto-remove $PKG_ANSIBLE
-
-# Install the pip version of Ansible which uses Python 3.
+# Upgrade pip to the latest version and us it to install Ansible with Python 3 support.
 # https://docs.ansible.com/ansible/latest/reference_appendices/python_3_support.html
-pip3 install $PKG_ANSIBLE
+PKG_ANSIBLE=ansible
+sudo apt purge --assume-yes --auto-remove $PKG_ANSIBLE
+sudo -H python3 -m pip install --upgrade pip
+sudo -H python3 -m pip install $PKG_ANSIBLE
 
 # playbook
-#PLAYBOOK=main.yml
 # Hand over to Ansible for the rest of the configuration.
-#echo "Run ansible playbook."
-#ansible-playbook $PLAYBOOK
+PLAYBOOK=main.yml
+ansible-playbook $PLAYBOOK
