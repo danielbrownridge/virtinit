@@ -19,19 +19,15 @@ wheel python3-wheel
 EOF
 }
 
-testNotFoundCommandPip3() {
-    cmd="pip3"
-    output=$(command -v ${cmd})
-    rtrn=$?
-    assertFalse "${cmd} found: ${output}" ${rtrn}
-}
-
-testNotFoundCommandAnsiblePlaybook() {
-    cmd="ansible-playbook"
-    output=$(dpkg --status "$pkg" 2>&1)
-    output=$(command -v ${cmd})
-    rtrn=$?
-    assertFalse "${cmd} missing: ${output}" ${rtrn}
+testNotFoundCommand() {
+    while read -r cmd; do
+        output=$(command -v "$cmd")
+        rtrn=$?
+        assertFalse "Found $cmd: $output" $rtrn
+    done <<EOF
+pip3
+ansible-playbook
+EOF
 }
 
 # shellcheck disable=SC1091
