@@ -12,6 +12,7 @@ pip3 python3-pip
 setuptools python3-setuptools
 wheel python3-wheel
 CPU-Checker cpu-checker
+virtualbox virtualbox-6
 EOF
 }
 
@@ -34,6 +35,8 @@ testFoundCommand() {
 ansible-playbook
 kvm-ok
 pip3
+virtualbox
+vboxmanage
 EOF
 }
 

@@ -24,7 +24,7 @@ sudo apt install --assume-yes $PIP3 $SETUPTOOLS $WHEEL
 # https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-ansible-on-ubuntu
 # https://packages.ubuntu.com/ansible
 # https://launchpad.net/~ansible/+archive/ubuntu/ansible
-# Upgrade pip to the latest version and us it to install Ansible with Python 3 support.
+# Upgrade pip to the latest version and use it to install Ansible with Python 3 support.
 # https://docs.ansible.com/ansible/latest/reference_appendices/python_3_support.html
 PKG_ANSIBLE=ansible
 sudo apt purge --assume-yes --auto-remove $PKG_ANSIBLE
