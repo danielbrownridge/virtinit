@@ -8,17 +8,17 @@ testNotFoundPackagePip3() {
 }
 
 testNotInstalledPkg() {
-    while read -r desc pkg; do
-        echo "$desc: $pkg"
+    while read -r pkg desc; do
         output=$(dpkg --status "$pkg" 2>&1)
         assertContains "Found $desc:" "$output" "package '$pkg' is not installed"
     done <<EOF
-pip3 python3-pip
-setuptools python3-setuptools
-wheel python3-wheel
-CPU-Checker cpu-checker
-virtualbox virtualbox-6.0
-Vagrant vagrant
+cpu-checker CPU-Checker
+python3-pip pip3
+python3-apt the python apt bindings
+python3-setuptools setuptools
+python3-wheel wheel
+virtualbox-6.0 virtualbox
+vagrant Vagrant
 EOF
 }
 

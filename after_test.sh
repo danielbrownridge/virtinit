@@ -2,24 +2,24 @@
 # file: after.sh
 
 testInstalledPkg() {
-    while read -r desc pkg; do
+    while read -r pkg desc; do
     output=$(apt-cache search --names-only "$pkg")
     assertContains "Not found $desc" "$output" "$pkg"
     output=$(dpkg --status "$pkg" 2>&1)
     assertContains "$desc: $output" "$output" "Status: install ok installed"
     done <<EOF
-pip3 python3-pip
-setuptools python3-setuptools
-wheel python3-wheel
-CPU-Checker cpu-checker
-Vagrant vagrant
-virtualbox virtualbox-6.0
+cpu-checker CPU-Checker
+python3-pip pip3
+python3-apt the python apt bindings
+python3-setuptools setuptools
+python3-wheel wheel
+virtualbox-6.0 virtualbox
+vagrant Vagrant
 EOF
 }
 
 testNotInstalledPkg() {
     while read -r desc pkg; do
-        echo "$desc: $pkg"
         output=$(dpkg --status "$pkg" 2>&1)
         assertContains "Found $desc:" "$output" "package '$pkg' is not installed"
     done <<EOF
