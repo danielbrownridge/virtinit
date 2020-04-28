@@ -7,6 +7,17 @@ testNotFoundPackagePip3() {
     assertNotContains "$output" "$output" "$pkg"
 }
 
+testInstalledPkg() {
+    while read -r pkg desc; do
+    output=$(apt-cache search --names-only "$pkg")
+    assertContains "Not found $desc" "$output" "$pkg"
+    output=$(dpkg --status "$pkg" 2>&1)
+    assertContains "$desc: $output" "$output" "Status: install ok installed"
+    done <<EOF
+python3-apt the python apt bindings
+EOF
+}
+
 testNotInstalledPkg() {
     while read -r pkg desc; do
         output=$(dpkg --status "$pkg" 2>&1)
