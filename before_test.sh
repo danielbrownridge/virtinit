@@ -25,7 +25,6 @@ testNotInstalledPkg() {
     done <<EOF
 cpu-checker CPU-Checker
 python3-pip pip3
-python3-apt the python apt bindings
 python3-setuptools setuptools
 python3-wheel wheel
 virtualbox-6.0 virtualbox

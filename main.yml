@@ -2,14 +2,7 @@
 - name: virtinit
   hosts: localhost
   tasks:
-  #  - name: Dependencies
-  #    block:
-  #      - apt:
-  #          pkg:
-  #          - python3-apt
-  #    become: true
-  #    tags: dependencies
-  #
+
   - name: Virtualization Technologies Check
     block:
       - name: APT install cpu-checker
