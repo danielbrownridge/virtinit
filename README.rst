@@ -31,3 +31,8 @@ Instructions
 #. Run the script::
 
    $ ./virtinit
+
+See Also
+========
+
+Google
