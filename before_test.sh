@@ -29,6 +29,7 @@ python3-setuptools setuptools
 python3-wheel wheel
 virtualbox-6.0 virtualbox
 vagrant Vagrant
+cowsay Cowsay
 EOF
 }
 
