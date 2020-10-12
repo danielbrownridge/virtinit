@@ -15,6 +15,6 @@ jobs:
     script:
       - ./before_test.sh
       - ./virtinit
-      - export PATH:$PATH/usr/games
+      - export PATH=$PATH:/usr/games
       - cowsay hello
       - ./after_test.sh
