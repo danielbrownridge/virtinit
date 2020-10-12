@@ -39,6 +39,7 @@ pip3
 vagrant
 vboxmanage
 virtualbox
+cowsay
 EOF
 }
 
