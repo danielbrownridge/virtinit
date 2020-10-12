@@ -15,4 +15,5 @@ jobs:
     script:
       - ./before_test.sh
       - ./virtinit
+      - cowsay hello
       - ./after_test.sh
