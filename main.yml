@@ -33,16 +33,34 @@
     tags: virtualbox
     become: true
 
-  - name: Vagrant
+
+  - name: Remove unofficial Vagrant apt repository key
+    apt_key:
+      id: AD319E0F7CFFA38B4D9F6E55CE3F3DE92099F7A4
+      keyserver: keyserver.ubuntu.com
+      state: absent
+    become: yes
+
+  - name: Remove unofficial Vagrant apt repository
     vars:
-      vagrant_repo_url: https://vagrant-deb.linestarve.com/
-    tags: vagrant
-    block:
-      - apt_key:
-          keyserver: keyserver.ubuntu.com
-          id: AD319E0F7CFFA38B4D9F6E55CE3F3DE92099F7A4
-      - apt_repository:
-          repo: "deb {{ vagrant_repo_url }} any main"
-      - apt:
-          name: vagrant
+      repository_url: https://vagrant-deb.linestarve.com/
+    apt_repository:
+      repo: "deb {{ repository_url }} any main"
+      state: absent
+
+  - name: Add Vagrant apt repository key
+    apt_key:
+      id: E8A032E094D8EB4EA189D270DA418C88A3219F7B
+      url: https://apt.releases.hashicorp.com/gpg
+
+  - name: Add Vagrant apt repository
+    vars:
+      repository_url: https://apt.releases.hashicorp.com
+    apt_repository:
+      repo: "deb [arch=amd64] {{repository_url}} {{ ansible_distribution_release }} main"
+    become: yes
+
+  - name: Install Vagrant
+    apt:
+      name: vagrant
     become: true
