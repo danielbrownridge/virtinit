@@ -18,20 +18,22 @@ SETUPTOOLS=python3-setuptools
 WHEEL=python3-wheel
 sudo apt install --assume-yes $PIP3 $SETUPTOOLS $WHEEL
 
+# Upgrade pip to the latest version.
+sudo -H python3 -m pip install --upgrade pip
+
 # Ansible
-# The apt version of Ansible from the Ubuntu repositories uses Python 2 so it
-# is removed if already installed.
-# https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-ansible-on-ubuntu
+# Remove any apt package since Ubuntu repositories tend to be out of date.
 # https://packages.ubuntu.com/ansible
 # https://launchpad.net/~ansible/+archive/ubuntu/ansible
-# Upgrade pip to the latest version and use it to install Ansible with Python 3 support.
-# https://docs.ansible.com/ansible/latest/reference_appendices/python_3_support.html
-PKG_ANSIBLE=ansible
-sudo apt purge --assume-yes --auto-remove $PKG_ANSIBLE
-sudo -H python3 -m pip install --upgrade pip
-sudo -H python3 -m pip install $PKG_ANSIBLE
+sudo apt purge --assume-yes --auto-remove ansible
 
-# playbook
+# Remove old versions installed with pip to ensure ansible is upgraded. 
+# https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#upgrading-ansible-with-pip
+sudo -H python3 -m pip uninstall --yes ansible ansible-base
+
+# https://docs.ansible.com/ansible/latest/reference_appendices/python_3_support.html
+sudo -H python3 -m pip install ansible
+
+# Playbook
 # Hand over to Ansible for the rest of the configuration.
-PLAYBOOK=main.yml
-ansible-playbook $PLAYBOOK
+ansible-playbook main.yml
