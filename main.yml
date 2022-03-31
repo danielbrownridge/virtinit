@@ -1,49 +1,50 @@
 ---
 - name: virtinit
   hosts: localhost
-  become: yes
+  become: true
   tasks:
 
   - tags: cpuchecker
     block:
       - name: Install cpu-checker
-        apt:
+        ansible.builtin.apt:
           name: cpu-checker
 
       - name: Check virtualization capabilities
-        command: kvm-ok
+        ansible.builtin.command: kvm-ok
         register: result
         ignore_errors: true
+        changed_when: false
 
       - name: Show virtualization check results
-        debug: var=result.stdout_lines
+        ansible.builtin.debug: var=result.stdout_lines
 
       - name: Stop if virtualization needs to be enabled
-        fail:
+        ansible.builtin.fail:
           msg: Enable virtualization (see above) and then re-run virtinit.
         when: result is failure
 
   - tags: virtualbox
     block:
       - name: Add Virtualbox apt repository key
-        apt_key:
-          id:  B9F8D658297AF3EFC18D5CDFA2F683C52980AECF
+        ansible.builtin.apt_key:
+          id: B9F8D658297AF3EFC18D5CDFA2F683C52980AECF
           url: https://www.virtualbox.org/download/oracle_vbox_2016.asc
 
       - name: Add Virtualbox apt repository
         vars:
           url: https://download.virtualbox.org/virtualbox/debian
-        apt_repository:
-          repo: "deb [arch=amd64] {{url}} {{ansible_distribution_release}} contrib"
+        ansible.builtin.apt_repository:
+          repo: "deb [arch=amd64] {{ url }} {{ ansible_distribution_release }} contrib"
 
       - name: Install Virtualbox
-        apt:
+        ansible.builtin.apt:
           name: virtualbox-6.1
 
   - tags: vagrant
     block:
       - name: Remove unofficial Vagrant apt repository key
-        apt_key:
+        ansible.builtin.apt_key:
           id: AD319E0F7CFFA38B4D9F6E55CE3F3DE92099F7A4
           keyserver: keyserver.ubuntu.com
           state: absent
@@ -51,27 +52,27 @@
       - name: Remove unofficial Vagrant apt repository
         vars:
           url: https://vagrant-deb.linestarve.com/
-        apt_repository:
-          repo: "deb {{url}} any main"
+        ansible.builtin.apt_repository:
+          repo: "deb {{ url }} any main"
           state: absent
 
       - name: Add Vagrant apt repository key
-        apt_key:
+        ansible.builtin.apt_key:
           id: E8A032E094D8EB4EA189D270DA418C88A3219F7B
           url: https://apt.releases.hashicorp.com/gpg
 
       - name: Add Vagrant apt repository
         vars:
           url: https://apt.releases.hashicorp.com
-        apt_repository:
-          repo: "deb [arch=amd64] {{url}} {{ansible_distribution_release}} main"
+        ansible.builtin.apt_repository:
+          repo: "deb [arch=amd64] {{ url }} {{ ansible_distribution_release }} main"
 
       - name: Install Vagrant
-        apt:
+        ansible.builtin.apt:
           name: vagrant
 
   - tags: ansible-lint
     block:
       - name: Install ansible-lint using pip
-        pip:
+        ansible.builtin.pip:
           name: ansible-lint
