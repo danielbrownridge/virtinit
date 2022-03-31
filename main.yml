@@ -69,3 +69,9 @@
       - name: Install Vagrant
         apt:
           name: vagrant
+
+  - tags: ansible-lint
+    block:
+      - name: Install ansible-lint using pip
+        pip:
+          name: ansible-lint
