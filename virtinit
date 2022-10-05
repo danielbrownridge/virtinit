@@ -1,39 +1,29 @@
 #!/bin/sh
 # virtinit
 
-# Most of the virtinit script is implemented as an Ansible playbook which
-# runs locally. It's necessary to bootstrap Ansible with Python3 support.
+# Bootstrap Ansible then run the playbook.
 
-# APT Cache
-# First update the apt cache so that system packages can be found.
+assert_command() {
+    if command -v $1 > /dev/null
+    then
+        echo $1 found
+    else
+        echo $1 not found
+        install_$1
+    fi
+}
+
+install_pip3() {
+    # https://packages.ubuntu.com/python3-pip
+    sudo apt install --assume-yes python3-pip
+}
+
+install_ansible() {
+    # https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#upgrading-ansible-with-pip
+    pip3 install ansible
+}
+
 sudo apt update
-
-# Python 3 packages
-# Install the Python 3 apt packages required to install and build ansible:
-# https://packages.ubuntu.com/python3-pip
-PIP3=python3-pip
-# https://packages.ubuntu.com/python3-setuptools
-SETUPTOOLS=python3-setuptools
-# https://packages.ubuntu.com/python3-wheel
-WHEEL=python3-wheel
-sudo apt install --assume-yes $PIP3 $SETUPTOOLS $WHEEL
-
-# Upgrade pip to the latest version.
-sudo -H python3 -m pip install --upgrade pip
-
-# Ansible
-# Remove any apt package since Ubuntu repositories tend to be out of date.
-# https://packages.ubuntu.com/ansible
-# https://launchpad.net/~ansible/+archive/ubuntu/ansible
-sudo apt purge --assume-yes --auto-remove ansible
-
-# Remove old versions installed with pip to ensure ansible is upgraded. 
-# https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#upgrading-ansible-with-pip
-sudo -H python3 -m pip uninstall --yes ansible ansible-base
-
-# https://docs.ansible.com/ansible/latest/reference_appendices/python_3_support.html
-sudo -H python3 -m pip install ansible
-
-# Playbook
-# Hand over to Ansible for the rest of the configuration.
+assert_command pip3
+assert_command ansible
 ansible-playbook main.yml

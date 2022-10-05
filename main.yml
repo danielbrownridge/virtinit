@@ -26,7 +26,7 @@
 
   - tags: virtualbox
     block:
-      - name: Add Virtualbox apt repository key
+      - name: Add VirtualBox archive signing key
         ansible.builtin.apt_key:
           id: B9F8D658297AF3EFC18D5CDFA2F683C52980AECF
           url: https://www.virtualbox.org/download/oracle_vbox_2016.asc
@@ -43,19 +43,6 @@
 
   - tags: vagrant
     block:
-      - name: Remove unofficial Vagrant apt repository key
-        ansible.builtin.apt_key:
-          id: AD319E0F7CFFA38B4D9F6E55CE3F3DE92099F7A4
-          keyserver: keyserver.ubuntu.com
-          state: absent
-
-      - name: Remove unofficial Vagrant apt repository
-        vars:
-          url: https://vagrant-deb.linestarve.com/
-        ansible.builtin.apt_repository:
-          repo: "deb {{ url }} any main"
-          state: absent
-
       - name: Add Vagrant apt repository key
         ansible.builtin.apt_key:
           id: E8A032E094D8EB4EA189D270DA418C88A3219F7B
@@ -70,9 +57,3 @@
       - name: Install Vagrant
         ansible.builtin.apt:
           name: vagrant
-
-  - tags: ansible-lint
-    block:
-      - name: Install ansible-lint using pip
-        ansible.builtin.pip:
-          name: ansible-lint
